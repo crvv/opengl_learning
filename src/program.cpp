@@ -4,15 +4,14 @@
 
 #include "program.h"
 
-Program *Program::newProgram(std::vector<Shader> &shaders) {
+std::shared_ptr<Program> Program::newProgram(std::vector<Shader> &shaders) {
     for (auto &shader : shaders) {
         shader.shaderID = 0;
     }
-    auto program = new Program(shaders);
+    auto program = std::make_shared<Program>(shaders);
     if (program->isValid()) {
         return program;
     }
-    delete program;
     return NULL;
 }
 bool Program::isValid() {

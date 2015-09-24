@@ -18,6 +18,8 @@ set(SOURCE_FILES
         src/node.cpp
         src/node.h
         src/glheader.h
+        src/terrain.cpp
+        src/terrain.h
 )
 
 add_executable(MySceneGraph ${SOURCE_FILES})

@@ -13,6 +13,8 @@ class Renderer {
 public:
     Renderer(int, int);
     void draw();
+    glm::mat4 *getMvp();
+    glm::vec2 *getScreenSize();
 
 private:
     std::shared_ptr<Node> root;

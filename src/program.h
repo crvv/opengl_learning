@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "glheader.h"
 
@@ -14,7 +15,8 @@ public:
         GLuint shaderID;
     };
 
-    static Program* newProgram(std::vector<Shader> &);
+    static std::shared_ptr<Program> newProgram(std::vector<Shader> &);
+    Program(std::vector<Shader> &);
     ~Program();
 
     void makeCurrent();
@@ -37,7 +39,6 @@ public:
 private:
     GLuint programID = 0;
 
-    Program(std::vector<Shader> &);
     bool isValid();
 
     void load(std::vector<Shader> &);

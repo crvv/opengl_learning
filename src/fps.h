@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_FPS_H_
-#define MYSCENEGRAPH_FPS_H_
+#ifndef SIMPLESCENEGRAPH_FPS_H_
+#define SIMPLESCENEGRAPH_FPS_H_
 
 
 #include <deque>

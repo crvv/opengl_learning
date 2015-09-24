@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_TEXTURE_H
-#define MYSCENEGRAPH_TEXTURE_H
+#ifndef SIMPLESCENEGRAPH_TEXTURE_H
+#define SIMPLESCENEGRAPH_TEXTURE_H
 
 #include "glheader.h"
 
@@ -14,4 +14,4 @@ private:
 };
 
 
-#endif //MYSCENEGRAPH_TEXTURE_H
+#endif

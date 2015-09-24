@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_RENDERER_H_
-#define MYSCENEGRAPH_RENDERER_H_
+#ifndef SIMPLESCENEGRAPH_RENDERER_H_
+#define SIMPLESCENEGRAPH_RENDERER_H_
 
 #include <string>
 #include <memory>

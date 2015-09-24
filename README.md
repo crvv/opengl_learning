@@ -1,1 +1,1 @@
-# MySceneGraph
+# SimpleSceneGraph

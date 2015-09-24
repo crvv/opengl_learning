@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_VAO_H_
-#define MYSCENEGRAPH_VAO_H_
+#ifndef SIMPLESCENEGRAPH_VAO_H_
+#define SIMPLESCENEGRAPH_VAO_H_
 
 #include <vector>
 
@@ -37,4 +37,4 @@ private:
 };
 
 
-#endif //MYSCENEGRAPH_VAO_H
+#endif

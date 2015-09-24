@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_MODEL_H_
-#define MYSCENEGRAPH_MODEL_H_
+#ifndef SIMPLESCENEGRAPH_MODEL_H_
+#define SIMPLESCENEGRAPH_MODEL_H_
 
 #include <vector>
 #include <fstream>
@@ -32,4 +32,4 @@ public:
 };
 
 
-#endif //MYSCENEGRAPH_MODEL_H
+#endif

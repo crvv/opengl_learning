@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_PROGRAM_H_
-#define MYSCENEGRAPH_PROGRAM_H_
+#ifndef SIMPLESCENEGRAPH_PROGRAM_H_
+#define SIMPLESCENEGRAPH_PROGRAM_H_
 
 #include <string>
 #include <vector>

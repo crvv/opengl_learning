@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_NODE_H_
-#define MYSCENEGRAPH_NODE_H_
+#ifndef SIMPLESCENEGRAPH_NODE_H_
+#define SIMPLESCENEGRAPH_NODE_H_
 
 #include <vector>
 #include <memory>
@@ -28,4 +28,4 @@ protected:
     virtual void afterDraw(Renderer *);
 };
 
-#endif //MYSCENEGRAPH_NODE_H
+#endif

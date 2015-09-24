@@ -1,5 +1,5 @@
-#ifndef MYSCENEGRAPH_GLHEADER_H_
-#define MYSCENEGRAPH_GLHEADER_H_
+#ifndef SIMPLESCENEGRAPH_GLHEADER_H_
+#define SIMPLESCENEGRAPH_GLHEADER_H_
 
 
 #define GLEW_STATIC
@@ -10,4 +10,4 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 
-#endif //MYSCENEGRAPH_GLHEADER_H
+#endif

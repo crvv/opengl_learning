@@ -7,6 +7,8 @@
 #include "glheader.h"
 #include "node.h"
 
+class Node;
+
 class Renderer {
     friend class Controller;
 
@@ -15,6 +17,7 @@ public:
     void draw();
     glm::mat4 *getMvp();
     glm::vec2 *getScreenSize();
+    void addNode(std::shared_ptr<Node>);
 
 private:
     std::shared_ptr<Node> root;

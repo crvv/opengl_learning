@@ -20,7 +20,11 @@ set(SOURCE_FILES
         src/glheader.h
         src/terrain.cpp
         src/terrain.h
-)
+        src/vao.cpp
+        src/vao.h
+        src/model.h
+        src/texture.cpp
+        src/texture.h)
 
 add_executable(MySceneGraph ${SOURCE_FILES})
 

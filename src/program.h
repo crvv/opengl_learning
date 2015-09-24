@@ -20,21 +20,22 @@ public:
     ~Program();
 
     void makeCurrent();
-    void setUniform(std::string, GLfloat*);
-    void setUniform(std::string, glm::vec2*);
-    void setUniform(std::string, glm::vec3*);
-    void setUniform(std::string, glm::vec4*);
-    void setUniform(std::string, GLint*);
-    void setUniform(std::string, glm::ivec2*);
-    void setUniform(std::string, glm::ivec3*);
-    void setUniform(std::string, glm::ivec4*);
-    void setUniform(std::string, GLuint*);
-    void setUniform(std::string, glm::uvec2*);
-    void setUniform(std::string, glm::uvec3*);
-    void setUniform(std::string, glm::uvec4*);
-    void setUniform(std::string, glm::mat2*);
-    void setUniform(std::string, glm::mat3*);
-    void setUniform(std::string, glm::mat4*);
+    void setUniform(std::string, GLfloat *);
+    void setUniform(std::string, glm::vec2 *);
+    void setUniform(std::string, glm::vec3 *);
+    void setUniform(std::string, glm::vec4 *);
+    void setUniform(std::string, GLboolean *);
+    void setUniform(std::string, GLint *);
+    void setUniform(std::string, glm::ivec2 *);
+    void setUniform(std::string, glm::ivec3 *);
+    void setUniform(std::string, glm::ivec4 *);
+    void setUniform(std::string, GLuint *);
+    void setUniform(std::string, glm::uvec2 *);
+    void setUniform(std::string, glm::uvec3 *);
+    void setUniform(std::string, glm::uvec4 *);
+    void setUniform(std::string, glm::mat2 *);
+    void setUniform(std::string, glm::mat3 *);
+    void setUniform(std::string, glm::mat4 *);
 
 private:
     GLuint programID = 0;

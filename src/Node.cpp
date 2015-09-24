@@ -2,8 +2,6 @@
 
 void Node::draw(Renderer *renderer) {
     if (drawable) {
-        program->makeCurrent();
-        program->setUniform("mvp", renderer->getMvp());
         beforeDraw(renderer);
         drawGeometry();
         afterDraw(renderer);
@@ -25,6 +23,10 @@ void Node::removeChild(std::shared_ptr<Node> child) {
         }
     }
 }
-void Node::beforeDraw(Renderer *) { }
+void Node::beforeDraw(Renderer *renderer) {
+    program->makeCurrent();
+    program->setUniform("mvp", renderer->getMvp());
+    vao->makeCurrent();
+}
 void Node::drawGeometry() { }
 void Node::afterDraw(Renderer *) { }

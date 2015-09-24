@@ -18,7 +18,7 @@ void Controller::handleEvent(SDL_Event *event) {
             break;
         case SDL_MOUSEWHEEL:
             mouseWheelFov(event->wheel.y);
-            mouseWheelUp(event->wheel.x);
+            mouseWheelUp(static_cast<float>(event->wheel.x));
             break;
         default:
             break;
@@ -56,9 +56,9 @@ void Controller::mouseWheelFov(int y) {
     }
 }
 
-void Controller::mouseWheelUp(int x) {
+void Controller::mouseWheelUp(float x) {
     auto direction = renderer->cameraDestination - renderer->cameraPosition;
-    auto trans = glm::rotate(glm::mat4(1.0f), mouseWheelUpSpeed*(float) x, direction);
+    auto trans = glm::rotate(glm::mat4(1.0f), mouseWheelUpSpeed*x, direction);
     renderer->cameraUp = glm::vec3(trans*glm::vec4(renderer->cameraUp, 0));
 }
 
@@ -88,10 +88,10 @@ void Controller::keyboard() {
         high -= walkSpeed*pos[2];
     }
     if (keyboardState[SDL_SCANCODE_E]) {
-        mouseWheelUp(-1);
+        mouseWheelUp(-keyboardUpSpeed);
     }
     if (keyboardState[SDL_SCANCODE_R]) {
-        mouseWheelUp(1);
+        mouseWheelUp(keyboardUpSpeed);
     }
     duration = SDL_GetTicks() - lastFrameTime;
     lastFrameTime = SDL_GetTicks();

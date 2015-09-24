@@ -18,6 +18,9 @@ void Renderer::draw() {
     root->draw(this);
 }
 
+void Renderer::addNode(std::shared_ptr<Node> node) {
+    root->addChild(node);
+}
 void Renderer::transform() {
     viewTrans = glm::lookAt(cameraPosition, cameraDestination, cameraUp);
     projectionTrans = glm::perspective(fov, aspectRatio, 0.00001f, 36.0f);

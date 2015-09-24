@@ -5,6 +5,7 @@
 
 #include "glheader.h"
 #include "node.h"
+#include "texture.h"
 
 class Terrain: public Node {
 
@@ -13,18 +14,14 @@ public:
 
 private:
     void beforeDraw(Renderer *) override;
+    void afterDraw(Renderer *) override;
     void drawGeometry() override;
+    void loadModel();
 
-    GLboolean frameEnable = GL_TRUE;
+    std::shared_ptr<Texture> texture;
+    GLboolean frameEnable = GL_FALSE;
     GLfloat terrainSideLength;
-
-    GLuint vertexArrayID;
-    GLuint vertexBufferID;
-    GLuint elementBufferID;
-    GLuint bombPositionID;
-    GLuint textureID;
     GLsizei vertexCount;
-    GLsizei bombCount;
 };
 
 #endif

@@ -21,7 +21,7 @@ private:
 
     void mouseMotion(int, int);
     void mouseWheelFov(int);
-    void mouseWheelUp(int);
+    void mouseWheelUp(float);
 
     Renderer *renderer;
     Monitor *monitor;
@@ -32,6 +32,7 @@ private:
     float walkSpeed = 9.8f/16000.0f;
     float mouseWheelFovSpeed = 0.1f;
     float mouseWheelUpSpeed = 0.314159f/2.0f;
+    float keyboardUpSpeed = 0.04f;
 
     Uint32 lastFrameTime = 0;
     Uint32 duration = 0;

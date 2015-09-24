@@ -6,17 +6,21 @@
 
 #include "program.h"
 #include "renderer.h"
+#include "vao.h"
+
+class Renderer;
 
 class Node {
 public:
-    void draw(Renderer *) final;
+    virtual void draw(Renderer *) final;
 
-    void addChild(std::shared_ptr<Node>) final;
-    void removeChild(std::shared_ptr<Node>) final;
+    virtual void addChild(std::shared_ptr<Node>) final;
+    virtual void removeChild(std::shared_ptr<Node>) final;
 
 protected:
     std::vector<std::shared_ptr<Node>> children;
     std::shared_ptr<Program> program;
+    std::shared_ptr<VAO> vao;
 
     bool drawable = false;
     virtual void beforeDraw(Renderer *);

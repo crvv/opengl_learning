@@ -1,106 +1,61 @@
 #include <iostream>
+#include <fstream>
 
 #include "terrain.h"
-#include "program.h"
+#include "model.h"
 
 Terrain::Terrain() {
     drawable = true;
     std::vector<Program::Shader> shaders = {
-            {GL_VERTEX_SHADER,          "glsl/terrain.vert.glsl"},
-            {GL_TESS_CONTROL_SHADER,    "glsl/terrain.cont.glsl"},
-            {GL_TESS_EVALUATION_SHADER, "glsl/terrain.eval.glsl"},
-            {GL_FRAGMENT_SHADER,        "glsl/terrain.frag.glsl"},
+        {GL_VERTEX_SHADER, "glsl/terrain.vert.glsl", 0},
+        {GL_TESS_CONTROL_SHADER, "glsl/terrain.cont.glsl", 0},
+        {GL_TESS_EVALUATION_SHADER, "glsl/terrain.eval.glsl", 0},
+        {GL_FRAGMENT_SHADER, "glsl/terrain.frag.glsl", 0},
     };
     program = Program::newProgram(shaders);
+    vao = std::make_shared<VAO>();
+
+    loadModel();
 }
 
 void Terrain::beforeDraw(Renderer *renderer) {
+    Node::beforeDraw(renderer);
     program->setUniform("screenSize", renderer->getScreenSize());
     program->setUniform("frameEnable", &frameEnable);
-    program->setUniform("terrainSideLength", terrainSideLength);
-
+    program->setUniform("terrainSideLength", &terrainSideLength);
+    if (frameEnable) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
 }
-//Renderer::~Renderer() {
-//    glDeleteBuffers(1, &vertexBufferID);
-//    glDeleteBuffers(1, &elementBufferID);
-//    glDeleteBuffers(1, &texCoordsBufferID);
-//    glDeleteBuffers(1, &normalsBufferID);
-//    glDeleteTextures(1, &textureID);
-//    glDeleteProgram(program);
-//}
+void Terrain::afterDraw(Renderer *) {
+    if (frameEnable) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+}
 
-void Terrain::drawGeometry(){
+void Terrain::drawGeometry() {
+    glPatchParameteri(GL_PATCH_VERTICES, 4);
     glDrawElements(GL_PATCHES, vertexCount, GL_UNSIGNED_INT, 0);
 }
 
-void Renderer::toggleBomb() {
-    bombEnable = !bombEnable;
-}
-
-void Renderer::toggleFrame() {
-    if (frameEnable) {
-        program1 = terrainProgram;
-        program2 = bombProgram;
-    } else {
-        program1 = terrainProgramFrame;
-        program2 = bombProgramFrame;
+void Terrain::loadModel() {
+    std::ifstream patchFile("model/patch", std::ios::binary);
+    std::ifstream terrainFile("model/terrain", std::ios::binary);
+    if (!patchFile.good() || !terrainFile.good()) {
+        throw std::runtime_error("unable to read file");
     }
-    frameEnable = !frameEnable;
+    std::vector<GLfloat> vertices;
+    std::vector<GLuint> indices;
+    std::vector<GLfloat> terrain;
+    GLuint terrainSidePointCount;
 
-    setUniformVariable();
-}
+    ModelUtils::readFileToValue(patchFile, vertices, indices);
+    ModelUtils::readFileToValue(terrainFile, terrainSideLength, terrainSidePointCount, terrain);
 
-void Renderer::transform() {
-    viewTrans = glm::lookAt(cameraPosition, cameraDestination, cameraUp);
-    projectionTrans = glm::perspective(fov, aspectRatio, 0.00001f, 36.0f);
-    modelTrans = glm::scale(glm::mat4(1.0f), glm::vec3(scale));
+    vertexCount = static_cast<GLsizei>(indices.size());
+    vao->addElementBuffer(indices, GL_STATIC_DRAW);
+    vao->addVertexAttribBuffer(0, 2, GL_FLOAT, vertices, GL_STATIC_DRAW);
 
-    auto mvp = projectionTrans * viewTrans * modelTrans;
-    glUniformMatrix4fv(mvpID, 1, GL_FALSE, &mvp[0][0]);
-}
+    texture = std::make_shared<Texture>(GL_TEXTURE_2D, terrainSidePointCount, terrain);
 
-void Renderer::loadModel() {
-    model = new Model(filename);
-    auto& vertices = model->vertices;
-    auto& indices = model->indices;
-    auto& terrain = model->terrain;
-    auto& terrainSidePointCount = model->terrainSidePointCount;
-    terrainSideLength = model->terrainSideLength;
-
-    glGenVertexArrays(1, &vertexArrayID);
-    glBindVertexArray(vertexArrayID);
-
-    glGenBuffers(1, &vertexBufferID);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(0);
-
-    glPatchParameteri(GL_PATCH_VERTICES, 4);
-
-    glGenBuffers(1, &elementBufferID);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBufferID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(indices[0]), &indices[0], GL_STATIC_DRAW);
-    vertexCount = (GLsizei) indices.size();
-
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_R16F, terrainSidePointCount, terrainSidePointCount,
-                 0, GL_RED, GL_FLOAT, &terrain[0]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-    GLsizeiptr bombDataSize = model->bombFloatCount * sizeof(GLfloat);
-    glGenBuffers(1, &bombPositionID);
-    glBindBuffer(GL_ARRAY_BUFFER, bombPositionID);
-    glBufferData(GL_ARRAY_BUFFER, bombDataSize, NULL, GL_STATIC_DRAW);
-    auto bombDataPointer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-    model->readBomb(bombDataPointer);
-    glUnmapBuffer(GL_ARRAY_BUFFER);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-    glEnableVertexAttribArray(1);
-    bombCount = (GLsizei) model->bombFloatCount / 2;
-
-    delete model;
-    model = NULL;
 }

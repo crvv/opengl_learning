@@ -5,9 +5,6 @@
 #include "program.h"
 
 std::shared_ptr<Program> Program::newProgram(std::vector<Shader> &shaders) {
-    for (auto &shader : shaders) {
-        shader.shaderID = 0;
-    }
     auto program = std::make_shared<Program>(shaders);
     if (program->isValid()) {
         return program;
@@ -114,6 +111,10 @@ void Program::setUniform(std::string name, glm::vec4 *value) {
     glUniform4fv(location, 1, &(*value)[0]);
 }
 
+void Program::setUniform(std::string name, GLboolean *value) {
+    auto location = glGetUniformLocation(programID, name.c_str());
+    glUniform1i(location, *value);
+}
 void Program::setUniform(std::string name, GLint *value) {
     auto location = glGetUniformLocation(programID, name.c_str());
     glUniform1iv(location, 1, value);

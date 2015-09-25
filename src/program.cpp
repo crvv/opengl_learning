@@ -41,8 +41,10 @@ void Program::load(std::vector<Shader> &shaders) {
 
     for (auto &shader : shaders) {
         const GLchar *source;
+        std::string src;
         try {
-            source = readShaderSrc(shader.filename).c_str();
+            src = readShaderSrc(shader.filename);
+            source = src.c_str();
         } catch (std::runtime_error err) {
             clearShaders(shaders);
             return;

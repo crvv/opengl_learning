@@ -12,7 +12,7 @@ public:
         file.read(reinterpret_cast<char *>(&value), sizeof(value));
     }
 
-    template<typename T, typename... Args>
+    template<typename T>
     static void readFileToValue(std::ifstream &file, std::vector<T> &list) {
         uint32_t size = 0;
         file.read(reinterpret_cast<char *>(&size), sizeof(size));

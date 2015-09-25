@@ -10,6 +10,7 @@ public:
     VAO();
     ~VAO();
     void makeCurrent();
+
     template<typename T>
     void addElementBuffer(std::vector<T> &indices, GLenum usage) {
         makeCurrent();

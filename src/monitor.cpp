@@ -33,9 +33,8 @@ Monitor::Monitor(int w, int h) : width(w), height(h) {
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1);
     SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, 4);
 
-
     window = SDL_CreateWindow("OpenGL SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                              width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+                              width, height, SDL_WINDOW_OPENGL);
     if (!window) {
         die("Unable to create window");
     }
@@ -63,7 +62,7 @@ void Monitor::setShouldExit() {
 }
 
 Monitor::~Monitor() {
-    SDL_GL_DeleteContext(&context);
+    SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

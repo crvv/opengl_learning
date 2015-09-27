@@ -1,9 +1,8 @@
 #ifndef SIMPLESCENEGRAPH_MONITOR_H_
 #define SIMPLESCENEGRAPH_MONITOR_H_
 
-
-#include <SDL2/SDL_video.h>
-#include <SDL2/SDL_events.h>
+#define SDL_MAIN_HANDLED
+#include <SDL2/SDL.h>
 
 #include "renderer.h"
 #include "controller.h"

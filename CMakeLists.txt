@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(SimpleSceneGraph)
+project(simple)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(CMAKE_EXE_LINKER_FLAGS "-static")
@@ -26,6 +26,6 @@ set(SOURCE_FILES
         src/texture.cpp
         src/texture.h)
 
-add_executable(SimpleSceneGraph ${SOURCE_FILES})
+add_executable(simple ${SOURCE_FILES})
 
-target_link_libraries(SimpleSceneGraph SDL2 glew32 opengl32 winmm imm32 Version)
+target_link_libraries(simple SDL2 glew32 opengl32 winmm imm32 Version)

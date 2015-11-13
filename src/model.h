@@ -16,11 +16,11 @@ public:
     static void readFileToValue(std::ifstream &file, std::vector<T> &list) {
         uint32_t size = 0;
         file.read(reinterpret_cast<char *>(&size), sizeof(size));
-        if (size==0) {
+        if (size == 0) {
             return;
         }
         list.resize(size);
-        file.read(reinterpret_cast<char *>(&list[0]), size*sizeof(T));
+        file.read(reinterpret_cast<char *>(&list[0]), size * sizeof(T));
     };
 
     template<typename T, typename... Args>

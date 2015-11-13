@@ -3,8 +3,8 @@
 
 
 Renderer::Renderer(int x, int y) :
-    screenSize(x, y) {
-    aspectRatio = static_cast<float>(x)/static_cast<float>(y);
+        screenSize(x, y) {
+    aspectRatio = static_cast<float>(x) / static_cast<float>(y);
     glEnable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.0f, 0.0f, 0.1f, 1.0f);
@@ -21,11 +21,12 @@ void Renderer::draw() {
 void Renderer::addNode(std::shared_ptr<Node> node) {
     root->addChild(node);
 }
+
 void Renderer::transform() {
     viewTrans = glm::lookAt(cameraPosition, cameraDestination, cameraUp);
     projectionTrans = glm::perspective(fov, aspectRatio, 0.00001f, 36.0f);
 
-    mvp = projectionTrans*viewTrans;
+    mvp = projectionTrans * viewTrans;
 }
 
 void Renderer::setVariable() {
@@ -39,6 +40,7 @@ void Renderer::setVariable() {
 glm::mat4 *Renderer::getMvp() {
     return &mvp;
 }
+
 glm::vec2 *Renderer::getScreenSize() {
     return &screenSize;
 }

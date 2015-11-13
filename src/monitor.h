@@ -2,6 +2,7 @@
 #define SIMPLESCENEGRAPH_MONITOR_H_
 
 #define SDL_MAIN_HANDLED
+
 #include <SDL2/SDL.h>
 
 #include "renderer.h"
@@ -24,7 +25,7 @@ private:
     SDL_GLContext context;
 
     const int width, height;
-    const int centerX = width/2, centerY = height/2;
+    const int centerX = width / 2, centerY = height / 2;
 
     bool sdlShouldRunning = true;
     SDL_Event event;

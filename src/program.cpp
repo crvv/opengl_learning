@@ -11,18 +11,23 @@ std::shared_ptr<Program> Program::newProgram(std::vector<Shader> &shaders) {
     }
     return NULL;
 }
+
 bool Program::isValid() {
-    return programID!=0;
+    return programID != 0;
 }
+
 Program::Program(std::vector<::Program::Shader> &shaders) {
     load(shaders);
 }
+
 Program::~Program() {
     glDeleteProgram(programID);
 }
+
 void Program::makeCurrent() {
     glUseProgram(programID);
 }
+
 const std::string Program::readShaderSrc(const std::string filename) {
     std::ifstream file(filename);
     if (file) {
@@ -86,7 +91,7 @@ void Program::load(std::vector<Shader> &shaders) {
 
 void Program::clearShaders(std::vector<Shader> &shaders) {
     for (auto &shader : shaders) {
-        if (shader.shaderID!=0) {
+        if (shader.shaderID != 0) {
             glDetachShader(programID, shader.shaderID);
             glDeleteShader(shader.shaderID);
         }
@@ -117,6 +122,7 @@ void Program::setUniform(std::string name, GLboolean *value) {
     auto location = glGetUniformLocation(programID, name.c_str());
     glUniform1i(location, *value);
 }
+
 void Program::setUniform(std::string name, GLint *value) {
     auto location = glGetUniformLocation(programID, name.c_str());
     glUniform1iv(location, 1, value);

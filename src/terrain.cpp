@@ -7,10 +7,10 @@
 Terrain::Terrain() {
     drawable = true;
     std::vector<Program::Shader> shaders = {
-        {GL_VERTEX_SHADER, "glsl/terrain.vert.glsl", 0},
-        {GL_TESS_CONTROL_SHADER, "glsl/terrain.cont.glsl", 0},
-        {GL_TESS_EVALUATION_SHADER, "glsl/terrain.eval.glsl", 0},
-        {GL_FRAGMENT_SHADER, "glsl/terrain.frag.glsl", 0},
+            {GL_VERTEX_SHADER,          "glsl/terrain.vert.glsl", 0},
+            {GL_TESS_CONTROL_SHADER,    "glsl/terrain.cont.glsl", 0},
+            {GL_TESS_EVALUATION_SHADER, "glsl/terrain.eval.glsl", 0},
+            {GL_FRAGMENT_SHADER,        "glsl/terrain.frag.glsl", 0},
     };
     program = Program::newProgram(shaders);
     vao = std::make_shared<VAO>();
@@ -27,6 +27,7 @@ void Terrain::beforeDraw(Renderer *renderer) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 }
+
 void Terrain::afterDraw(Renderer *) {
     if (frameEnable) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

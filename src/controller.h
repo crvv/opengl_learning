@@ -29,9 +29,9 @@ private:
     static Controller *self;
 
     float mouseSpeed = 0.001f;
-    float walkSpeed = 9.8f/16000.0f;
+    float walkSpeed = 9.8f / 16000.0f;
     float mouseWheelFovSpeed = 0.1f;
-    float mouseWheelUpSpeed = 0.314159f/2.0f;
+    float mouseWheelUpSpeed = 0.314159f / 2.0f;
     float keyboardUpSpeed = 0.04f;
 
     Uint32 lastFrameTime = 0;

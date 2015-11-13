@@ -7,7 +7,7 @@
 #include "node.h"
 #include "texture.h"
 
-class Terrain: public Node {
+class Terrain : public Node {
 
 public:
     Terrain();

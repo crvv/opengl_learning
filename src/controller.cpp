@@ -24,8 +24,9 @@ void Controller::handleEvent(SDL_Event *event) {
             break;
     }
 }
+
 Controller *Controller::getController(Renderer *r, Monitor *m) {
-    if (self==NULL) {
+    if (self == NULL) {
         self = new Controller(r, m);
     }
     return self;
@@ -38,11 +39,11 @@ void Controller::mouseMotion(int x, int y) {
 
     auto direction = des - pos;
 
-    auto transX = glm::rotate(glm::mat4(1.0f), (float) x*mouseSpeed, -up);
-    auto trans = glm::rotate(transX, (float) y*mouseSpeed, glm::cross(up, direction));
+    auto transX = glm::rotate(glm::mat4(1.0f), (float) x * mouseSpeed, -up);
+    auto trans = glm::rotate(transX, (float) y * mouseSpeed, glm::cross(up, direction));
 
-    direction = glm::vec3(trans*glm::vec4(direction, 0));
-    up = glm::vec3(trans*glm::vec4(up, 0));
+    direction = glm::vec3(trans * glm::vec4(direction, 0));
+    up = glm::vec3(trans * glm::vec4(up, 0));
     des = direction + pos;
 
     renderer->cameraDestination = des;
@@ -50,7 +51,7 @@ void Controller::mouseMotion(int x, int y) {
 }
 
 void Controller::mouseWheelFov(int y) {
-    renderer->fov *= (1.0f - mouseWheelFovSpeed*(float) y);
+    renderer->fov *= (1.0f - mouseWheelFovSpeed * (float) y);
     if (renderer->fov > 3.14f) {
         renderer->fov = 3.14f;
     }
@@ -58,8 +59,8 @@ void Controller::mouseWheelFov(int y) {
 
 void Controller::mouseWheelUp(float x) {
     auto direction = renderer->cameraDestination - renderer->cameraPosition;
-    auto trans = glm::rotate(glm::mat4(1.0f), mouseWheelUpSpeed*x, direction);
-    renderer->cameraUp = glm::vec3(trans*glm::vec4(renderer->cameraUp, 0));
+    auto trans = glm::rotate(glm::mat4(1.0f), mouseWheelUpSpeed * x, direction);
+    renderer->cameraUp = glm::vec3(trans * glm::vec4(renderer->cameraUp, 0));
 }
 
 void Controller::keyboard() {
@@ -70,22 +71,22 @@ void Controller::keyboard() {
 
     float ahead = 0.0f, right = 0.0f, high = 0.0f;
     if (keyboardState[SDL_SCANCODE_W]) {
-        ahead += walkSpeed*pos[2];
+        ahead += walkSpeed * pos[2];
     }
     if (keyboardState[SDL_SCANCODE_S]) {
-        ahead -= walkSpeed*pos[2];
+        ahead -= walkSpeed * pos[2];
     }
     if (keyboardState[SDL_SCANCODE_D]) {
-        right += walkSpeed*pos[2];
+        right += walkSpeed * pos[2];
     }
     if (keyboardState[SDL_SCANCODE_A]) {
-        right -= walkSpeed*pos[2];
+        right -= walkSpeed * pos[2];
     }
     if (keyboardState[SDL_SCANCODE_Q]) {
-        high += walkSpeed*pos[2];
+        high += walkSpeed * pos[2];
     }
     if (keyboardState[SDL_SCANCODE_Z]) {
-        high -= walkSpeed*pos[2];
+        high -= walkSpeed * pos[2];
     }
     if (keyboardState[SDL_SCANCODE_E]) {
         mouseWheelUp(-keyboardUpSpeed);
@@ -99,13 +100,13 @@ void Controller::keyboard() {
     right *= static_cast<float>(duration);
     high *= static_cast<float>(duration);
 
-    auto move = glm::normalize(direction)*ahead
-        + glm::normalize(glm::cross(direction, up))*right
-        + glm::normalize(up)*high;
+    auto move = glm::normalize(direction) * ahead
+                + glm::normalize(glm::cross(direction, up)) * right
+                + glm::normalize(up) * high;
     auto trans = glm::translate(glm::mat4(1.0f), move);
 
-    pos = glm::vec3(trans*glm::vec4(pos, 1));
-    des = glm::vec3(trans*glm::vec4(des, 1));
+    pos = glm::vec3(trans * glm::vec4(pos, 1));
+    des = glm::vec3(trans * glm::vec4(des, 1));
 
     renderer->cameraDestination = des;
     renderer->cameraPosition = pos;

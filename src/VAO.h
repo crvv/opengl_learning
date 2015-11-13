@@ -16,7 +16,7 @@ public:
         makeCurrent();
         glGenBuffers(1, &elementBufferID);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementBufferID);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size()*sizeof(T), &indices[0], usage);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(T), &indices[0], usage);
     }
 
     template<typename T>
@@ -26,7 +26,7 @@ public:
         attribs.push_back(id);
         makeCurrent();
         glBindBuffer(GL_ARRAY_BUFFER, id);
-        glBufferData(GL_ARRAY_BUFFER, data.size()*sizeof(T), &data[0], usage);
+        glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), &data[0], usage);
         glVertexAttribPointer(index, size, type, GL_FALSE, 0, 0);
         glEnableVertexAttribArray(index);
     }

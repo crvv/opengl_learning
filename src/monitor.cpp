@@ -47,7 +47,7 @@ Monitor::Monitor(int w, int h) : width(w), height(h) {
     glewExperimental = GL_TRUE;
     auto err = glewInit();
     if (err != GLEW_OK) {
-        std::string message(reinterpret_cast<const char*>(glewGetErrorString(err)));
+        std::string message(reinterpret_cast<const char *>(glewGetErrorString(err)));
         throw std::runtime_error(message);
     }
 
@@ -88,7 +88,7 @@ void Monitor::handleEvent() {
     }
 }
 
-void Monitor::display(Renderer& r) {
+void Monitor::display(Renderer &r) {
     renderer = &r;
 
     SDL_WarpMouseInWindow(window, centerX, centerY);

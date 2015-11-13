@@ -36,7 +36,7 @@ void Terrain::afterDraw(Renderer *) {
 
 void Terrain::drawGeometry() {
     glPatchParameteri(GL_PATCH_VERTICES, 4);
-    glDrawElements(GL_PATCHES, vertexCount, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_PATCHES, vertexCount, GL_UNSIGNED_INT, nullptr);
 }
 
 void Terrain::loadModel() {

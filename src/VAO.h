@@ -21,13 +21,13 @@ public:
 
     template<typename T>
     void addVertexAttribBuffer(GLuint index, GLint size, GLenum type, std::vector<T> data, GLenum usage) {
-        GLuint id;
-        glGenBuffers(1, &id);
-        attribs.push_back(id);
+        GLuint bufferId;
+        glGenBuffers(1, &bufferId);
+        attribs.push_back(bufferId);
         makeCurrent();
-        glBindBuffer(GL_ARRAY_BUFFER, id);
+        glBindBuffer(GL_ARRAY_BUFFER, bufferId);
         glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(T), &data[0], usage);
-        glVertexAttribPointer(index, size, type, GL_FALSE, 0, 0);
+        glVertexAttribPointer(index, size, type, GL_FALSE, 0, nullptr);
         glEnableVertexAttribArray(index);
     }
 

@@ -21,13 +21,13 @@ public:
         }
         list.resize(size);
         file.read(reinterpret_cast<char *>(&list[0]), size * sizeof(T));
-    };
+    }
 
     template<typename T, typename... Args>
     static void readFileToValue(std::ifstream &file, T &value, Args &... rest) {
         readFileToValue(file, value);
         readFileToValue(file, rest...);
-    };
+    }
 
 };
 

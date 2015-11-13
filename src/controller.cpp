@@ -4,10 +4,10 @@
 #include "controller.h"
 
 
-Controller *Controller::self = NULL;
+Controller *Controller::self = nullptr;
 
 Controller::Controller(Renderer *r, Monitor *m) : renderer(r), monitor(m) {
-    keyboardState = SDL_GetKeyboardState(NULL);
+    keyboardState = SDL_GetKeyboardState(nullptr);
 }
 
 void Controller::handleEvent(SDL_Event *event) {

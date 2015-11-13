@@ -57,7 +57,7 @@ void Program::load(std::vector<Shader> &shaders) {
         GLuint shaderID = glCreateShader(shader.type);
         shader.shaderID = shaderID;
         glAttachShader(programID, shaderID);
-        glShaderSource(shaderID, 1, &source, NULL);
+        glShaderSource(shaderID, 1, &source, nullptr);
         glCompileShader(shaderID);
         GLint compileSuccess;
         glGetShaderiv(shaderID, GL_COMPILE_STATUS, &compileSuccess);

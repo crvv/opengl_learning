@@ -79,8 +79,14 @@ namespace {
                 first_deriv = 1,
                 second_deriv = 2
             };
+            struct coefficients {
+                int len;
+                std::vector<float> xs, ys, as, bs, cs;
+            };
+            coefficients getCoefficients();
 
         private:
+            std::vector<float> convertToFloats(std::vector<double>&);
             std::vector<double> m_x, m_y;            // x,y coordinates of points
             // interpolation parameters
             // f(x) = a*(x-x_i)^3 + b*(x-x_i)^2 + c*(x-x_i) + y_i
@@ -368,11 +374,27 @@ namespace {
                 m_b[n - 1] = 0.0;
         }
 
+        std::vector<float> spline::convertToFloats(std::vector<double>& input) {
+            std::vector<float> result;
+            for (double v : input) {
+                result.push_back(static_cast<float>(v));
+            }
+            return result;
+        }
+
+        spline::coefficients spline::getCoefficients() {
+            coefficients c;
+            c.xs = convertToFloats(m_x);
+            c.ys = convertToFloats(m_y);
+            c.as = convertToFloats(m_a);
+            c.bs = convertToFloats(m_b);
+            c.cs = convertToFloats(m_c);
+            return c;
+        }
         double spline::operator()(double x) const {
             size_t n = m_x.size();
             // find the closest point m_x[idx] < x, idx=0 even if x<m_x[0]
-            std::vector<double>::const_iterator it;
-            it = std::lower_bound(m_x.begin(), m_x.end(), x);
+            auto it = std::lower_bound(m_x.begin(), m_x.end(), x);
             int idx = std::max(int(it - m_x.begin()) - 1, 0);
 
             double h = x - m_x[idx];

@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "spline.h"
 #include "glheader.h"
 #include "node.h"
 #include "texture.h"
@@ -19,6 +20,7 @@ private:
     void drawGeometry() override;
     void loadModel();
 
+    tk::spline::coefficients coff;
     std::shared_ptr<Texture> texture;
     GLboolean frameEnable = GL_FALSE;
     GLfloat terrainSideLength;

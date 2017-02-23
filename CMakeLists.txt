@@ -30,7 +30,9 @@ set(SOURCE_FILES
         src/vao.h
         src/model.h
         src/texture.cpp
-        src/texture.h)
+        src/texture.h
+        src/spline.h
+        )
 
 add_executable(simple ${SOURCE_FILES})
 

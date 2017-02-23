@@ -13,11 +13,13 @@ class Controller {
 
 public:
     static Controller *getController(Renderer *, Monitor *);
-    void handleEvent(SDL_Event *);
-    void keyboard();
+    void handleEvent();
+    void setKeyboardEventCallback(SDL_Scancode, const std::function <void ()>*);
 
 private:
     Controller(Renderer *, Monitor *);
+
+    void keyboard();
 
     void mouseMotion(int, int);
     void mouseWheelFov(int);
@@ -38,6 +40,11 @@ private:
     Uint32 duration = 0;
 
     const Uint8 *keyboardState = NULL;
+    struct keyboardCallback {
+        SDL_Scancode keycode;
+        const std::function <void ()>* f;
+    };
+    std::vector<keyboardCallback> keyboardEventCallbacks;
 };
 
 #endif

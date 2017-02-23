@@ -4,7 +4,7 @@
 #include "terrain.h"
 #include "model.h"
 
-Terrain::Terrain() {
+Terrain::Terrain(Controller* controller) {
     drawable = true;
     std::vector<Program::Shader> shaders = {
             {GL_VERTEX_SHADER,          "glsl/terrain.vert.glsl", 0},
@@ -16,9 +16,15 @@ Terrain::Terrain() {
     vao = std::make_shared<VAO>();
 
     loadModel();
+    controller->setKeyboardEventCallback(SDL_SCANCODE_F,
+            new std::function<void()>([this]() {
+                if (this->frameEnable == GL_TRUE) this->frameEnable = GL_FALSE;
+                else this->frameEnable = GL_TRUE;
+            }));
+
 }
 
-void Terrain::beforeDraw(Renderer *renderer) {
+void Terrain::beforeDraw(Renderer* renderer) {
     Node::beforeDraw(renderer);
     program->setUniform("screenSize", renderer->getScreenSize());
     program->setUniform("frameEnable", &frameEnable);
@@ -28,7 +34,7 @@ void Terrain::beforeDraw(Renderer *renderer) {
     }
 }
 
-void Terrain::afterDraw(Renderer *) {
+void Terrain::afterDraw(Renderer*) {
     if (frameEnable) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }

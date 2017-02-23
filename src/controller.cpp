@@ -10,19 +10,40 @@ Controller::Controller(Renderer *r, Monitor *m) : renderer(r), monitor(m) {
     keyboardState = SDL_GetKeyboardState(nullptr);
 }
 
-void Controller::handleEvent(SDL_Event *event) {
-    switch (event->type) {
+void Controller::handleEvent() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+        case SDL_QUIT:
+            monitor->setShouldExit();
+            break;
+        case SDL_KEYDOWN:
+            switch (event.key.keysym.scancode) {
+            case SDL_SCANCODE_ESCAPE:
+                monitor->setShouldExit();
+                break;
+            default:
+                for (auto callback : keyboardEventCallbacks) {
+                    if (event.key.keysym.scancode == callback.keycode) {
+                        (*callback.f)();
+                    }
+                }
+                break;
+            }
+            break;
         case SDL_MOUSEMOTION:
-            mouseMotion(event->motion.x - monitor->centerX, event->motion.y - monitor->centerY);
+            mouseMotion(event.motion.x - monitor->centerX, event.motion.y - monitor->centerY);
             SDL_WarpMouseInWindow(monitor->window, monitor->centerX, monitor->centerY);
             break;
         case SDL_MOUSEWHEEL:
-            mouseWheelFov(event->wheel.y);
-            mouseWheelUp(static_cast<float>(event->wheel.x));
+            mouseWheelFov(event.wheel.y);
+            mouseWheelUp(static_cast<float>(event.wheel.x));
             break;
         default:
             break;
+        }
     }
+    keyboard();
 }
 
 Controller *Controller::getController(Renderer *r, Monitor *m) {
@@ -61,6 +82,10 @@ void Controller::mouseWheelUp(float x) {
     auto direction = renderer->cameraDestination - renderer->cameraPosition;
     auto trans = glm::rotate(glm::mat4(1.0f), mouseWheelUpSpeed * x, direction);
     renderer->cameraUp = glm::vec3(trans * glm::vec4(renderer->cameraUp, 0));
+}
+
+void Controller::setKeyboardEventCallback(SDL_Scancode code, const std::function <void ()>* f) {
+    keyboardEventCallbacks.push_back(keyboardCallback{code, f});
 }
 
 void Controller::keyboard() {

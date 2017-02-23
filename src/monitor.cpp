@@ -67,27 +67,6 @@ Monitor::~Monitor() {
     SDL_Quit();
 }
 
-void Monitor::handleEvent() {
-    while (SDL_PollEvent(&event)) {
-        switch (event.type) {
-            case SDL_QUIT:
-                setShouldExit();
-                break;
-            case SDL_KEYDOWN:
-                switch (event.key.keysym.scancode) {
-                    case SDL_SCANCODE_ESCAPE:
-                        setShouldExit();
-                        break;
-                    default:
-                        break;
-                }
-            default:
-                controller->handleEvent(&event);
-                break;
-        }
-    }
-}
-
 void Monitor::display(Renderer &r) {
     renderer = &r;
 
@@ -97,8 +76,7 @@ void Monitor::display(Renderer &r) {
 
     while (sdlShouldRunning) {
         std::cout << "\r" << std::fixed << counter.addFrame(SDL_GetTicks()) << " ms/frame";
-        handleEvent();
-        controller->keyboard();
+        controller->handleEvent();
         renderer->draw();
         SDL_GL_SwapWindow(window);
     }

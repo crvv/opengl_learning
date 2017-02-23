@@ -6,11 +6,12 @@
 #include "glheader.h"
 #include "node.h"
 #include "texture.h"
+#include "controller.h"
 
 class Terrain : public Node {
 
 public:
-    Terrain();
+    Terrain(Controller*);
 
 private:
     void beforeDraw(Renderer *) override;

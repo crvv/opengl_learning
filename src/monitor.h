@@ -28,7 +28,6 @@ private:
     const int centerX = width / 2, centerY = height / 2;
 
     bool sdlShouldRunning = true;
-    SDL_Event event;
 
     FpsCounter counter;
     Controller *controller;
@@ -36,7 +35,6 @@ private:
 
     void die(std::string);
     void checkError(int);
-    void handleEvent();
 };
 
 #endif

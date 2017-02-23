@@ -177,3 +177,13 @@ void Program::setUniform(std::string name, glm::mat4 *value) {
     auto location = glGetUniformLocation(programID, name.c_str());
     glUniformMatrix4fv(location, 1, GL_FALSE, &(*value)[0][0]);
 }
+
+void Program::setUniform(std::string name, std::vector<float>& value) {
+    auto location = glGetUniformLocation(programID, name.c_str());
+    glUniform1fv(location, static_cast<GLsizei>(value.size()), &value[0]);
+}
+
+void Program::setUniform(std::string name, int value) {
+    auto location = glGetUniformLocation(programID, name.c_str());
+    glUniform1i(location, value);
+}

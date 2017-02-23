@@ -36,6 +36,8 @@ public:
     void setUniform(std::string, glm::mat2 *);
     void setUniform(std::string, glm::mat3 *);
     void setUniform(std::string, glm::mat4 *);
+    void setUniform(std::string, std::vector<float>&);
+    void setUniform(std::string, int);
 
 private:
     GLuint programID = 0;

@@ -61,8 +61,12 @@ void main() {
     vec2 normalVector = normalize(vec2(-roadd, 1));
     float dist = abs(dot(vec2(0, y - roady), normalVector));
 
-    vec2 roadxy = vec2(x, y) - normalVector * dist;
-    float roadz = texture(terrain, roadxy).r;
+    vec2 roadxy;
+    if (y >= roady) {
+        roadxy = vec2(x, y) - normalVector * dist;
+    } else {
+        roadxy = vec2(x, y) + normalVector * dist;
+    }
 
     float halfWidth = 0.0040;
     float height = 0.0005;

@@ -32,6 +32,7 @@ set(SOURCE_FILES
         src/texture.cpp
         src/texture.h
         src/spline.h
+        src/json.hpp
         )
 
 add_executable(simple ${SOURCE_FILES})

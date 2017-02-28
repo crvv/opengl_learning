@@ -57,11 +57,25 @@ void main() {
 
     float roady = spline(x);
     float roadd = deriv(x);
-    float dist = dot(vec2(0, y - roady), normalize(vec2(-roadd, 1)));
-    if (abs(dist) < 0.005) {
+    vec2 normalVector = normalize(vec2(-roadd, 1));
+    float dist = abs(dot(vec2(0, y - roady), normalVector));
+
+    vec2 roadxy = vec2(x, y) - normalVector * dist;
+    float roadz = texture(terrain, roadxy).r;
+
+    float halfWidth = 0.0040;
+    float height = 0.0005;
+    if (dist < halfWidth) {
         road = 1;
-        z = z + 0.005;
+        if (dist < halfWidth * 0.6) {
+            z = roadz + height;
+        } else if (dist < halfWidth * 0.8) {
+            z = roadz + height * 1.2;
+        } else {
+            z = roadz + (halfWidth - dist);
+        }
     }
+
     for (int i = 0; i < len; i++) {
         if (length(vec2(x - xs[i], y - ys[i])) < 0.0025) {
             road = 2;

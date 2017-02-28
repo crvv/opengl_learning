@@ -69,15 +69,23 @@ void main() {
     }
 
     float halfWidth = 0.0040;
-    float height = 0.0005;
-    if (dist < halfWidth) {
+    float height = 0.002;
+
+    float roadz = 0;
+    int neighbors = 20;
+    for (int i = -neighbors; i <= neighbors; i++) {
+        roadz += texture(terrain, roadxy + i * normalVector * halfWidth / 2).r;
+    }
+    roadz /= (2 * neighbors + 1);
+
+    if (dist < halfWidth * 1.5) {
         road = 1;
-        if (dist < halfWidth * 0.6) {
+        if (dist < halfWidth * 0.8) {
             z = roadz + height;
-        } else if (dist < halfWidth * 0.8) {
+        } else if (dist < halfWidth) {
             z = roadz + height * 1.2;
         } else {
-            z = roadz + (halfWidth - dist);
+            z += (3 - 2 * dist / halfWidth) * (roadz + height * 1.2 - z);
         }
     }
 

@@ -54,6 +54,7 @@ void Terrain::beforeDraw(Renderer* renderer) {
     program->setUniform("as", coff.as);
     program->setUniform("bs", coff.bs);
     program->setUniform("cs", coff.cs);
+    program->setUniform("currentPoint", currentPoint);
 
     if (frameEnable) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

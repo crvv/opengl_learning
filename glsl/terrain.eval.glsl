@@ -5,6 +5,7 @@ layout (quads, equal_spacing, ccw) in;
 uniform sampler2D terrain;
 uniform mat4 mvp;
 
+uniform int currentPoint;
 uniform int len;
 uniform float xs[64], ys[64], as[64], bs[64], cs[64];
 
@@ -79,6 +80,9 @@ void main() {
     for (int i = 0; i < len; i++) {
         if (length(vec2(x - xs[i], y - ys[i])) < 0.0025) {
             road = 2;
+            if (i == currentPoint) {
+                road = 3;
+            }
             break;
         }
     }

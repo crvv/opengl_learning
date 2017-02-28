@@ -21,6 +21,7 @@ private:
     void loadModel();
     void updateSplineCoff();
 
+    int currentPoint = 0;
     std::vector<double> xs, ys;
     tk::spline::coefficients coff;
     std::shared_ptr<Texture> texture;

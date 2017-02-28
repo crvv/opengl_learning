@@ -19,8 +19,8 @@ Terrain::Terrain(Controller* controller) {
     loadModel();
     controller->setKeyboardEventCallback(SDL_SCANCODE_F,
             new std::function<void()>([this]() {
-                if (this->frameEnable == GL_TRUE) this->frameEnable = GL_FALSE;
-                else this->frameEnable = GL_TRUE;
+                if (frameEnable == GL_TRUE) frameEnable = GL_FALSE;
+                else frameEnable = GL_TRUE;
             }));
 
     std::vector<double> X, Y;

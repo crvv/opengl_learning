@@ -21,6 +21,9 @@ private:
     void loadModel();
     void updateSplineCoff();
 
+    std::function<void()>* getPointSelectFunction(int);
+    std::function<void()>* getPointMoveFunction(float, float);
+
     std::string roadPointFilename = "road_points.json";
     int currentPoint = 0;
     std::vector<double> xs, ys;

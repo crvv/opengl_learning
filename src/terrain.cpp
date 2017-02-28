@@ -22,7 +22,63 @@ Terrain::Terrain(Controller* controller) {
                 if (frameEnable == GL_TRUE) frameEnable = GL_FALSE;
                 else frameEnable = GL_TRUE;
             }));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_1, getPointSelectFunction(-1));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_2, getPointSelectFunction(1));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_UP, getPointMoveFunction(0, 1));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_LEFT, getPointMoveFunction(-1, 0));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_DOWN, getPointMoveFunction(0, -1));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_RIGHT, getPointMoveFunction(1, 0));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_SPACE, new std::function<void()>([this]() {
+        std::vector<std::vector<double>> jsonData(xs.size());
+        int i = 0;
+        std::for_each(jsonData.begin(), jsonData.end(), [this, &i](auto& v) {
+            v.push_back(xs[i]);
+            v.push_back(ys[i]);
+            i++;
+        });
+        std::ofstream(roadPointFilename) << nlohmann::json(jsonData);
+        std::cout << "saved" << std::endl;
+    }));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_N, new std::function<void()>([this]() {
+        ys.insert(ys.begin() + currentPoint + 1, ys[currentPoint]);
+        double newX;
+        if (currentPoint == xs.size() - 1) {
+            newX = (xs[currentPoint] + 1) / 2;
+        } else {
+            newX = (xs[currentPoint] + xs[currentPoint + 1]) / 2;
+        }
+        xs.insert(xs.begin() + currentPoint + 1, newX);
+        updateSplineCoff();
+    }));
+    controller->setKeyboardEventCallback(SDL_SCANCODE_M, new std::function<void()>([this]() {
+        xs.erase(xs.begin() + currentPoint);
+        ys.erase(ys.begin() + currentPoint);
+        if (currentPoint == xs.size()) {
+            currentPoint = static_cast<int>(xs.size() - 1);
+        }
+        updateSplineCoff();
+    }));
+}
 
+std::function<void()>* Terrain::getPointMoveFunction(float dx, float dy) {
+    return new std::function<void()>([this, dx, dy]() {
+        xs[currentPoint] += dx * 0.002;
+        ys[currentPoint] += dy * 0.002;
+        std::cout << xs[currentPoint] << ", " << ys[currentPoint] << std::endl;
+        updateSplineCoff();
+    });
+}
+std::function<void()>* Terrain::getPointSelectFunction(int delta) {
+    return new std::function<void()>([this, delta]() {
+        currentPoint += delta;
+        int max = static_cast<int>(xs.size());
+        if (currentPoint == -1) {
+            currentPoint = max - 1;
+        }
+        if (currentPoint == max) {
+            currentPoint = 0;
+        }
+    });
 }
 
 void Terrain::beforeDraw(Renderer* renderer) {

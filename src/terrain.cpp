@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 
+#include "json.hpp"
 #include "terrain.h"
 #include "model.h"
 
@@ -90,4 +91,18 @@ void Terrain::loadModel() {
 
     texture = std::make_shared<Texture>(GL_TEXTURE_2D, terrainSidePointCount, terrain);
 
+    std::ifstream roadPointFile("road_points.json");
+    nlohmann::json roadData;
+    roadPointFile >> roadData;
+    for (auto point : roadData) {
+        xs.push_back(point[0]);
+        ys.push_back(point[1]);
+    }
+    updateSplineCoff();
+}
+
+void Terrain::updateSplineCoff() {
+    tk::spline s;
+    s.set_points(xs, ys);
+    coff = s.getCoefficients();
 }

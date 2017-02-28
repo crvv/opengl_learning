@@ -19,7 +19,9 @@ private:
     void afterDraw(Renderer *) override;
     void drawGeometry() override;
     void loadModel();
+    void updateSplineCoff();
 
+    std::vector<double> xs, ys;
     tk::spline::coefficients coff;
     std::shared_ptr<Texture> texture;
     GLboolean frameEnable = GL_FALSE;

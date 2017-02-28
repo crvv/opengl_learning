@@ -23,24 +23,6 @@ Terrain::Terrain(Controller* controller) {
                 else frameEnable = GL_TRUE;
             }));
 
-    std::vector<double> X, Y;
-    X.push_back(0.1);
-    X.push_back(0.2);
-    X.push_back(0.4);
-    X.push_back(0.6);
-    X.push_back(0.8);
-    X.push_back(0.9);
-
-    Y.push_back(0.5);
-    Y.push_back(0.6);
-    Y.push_back(0.3);
-    Y.push_back(0.5);
-    Y.push_back(0.6);
-    Y.push_back(0.5);
-
-    tk::spline s;
-    s.set_points(X, Y);    // currently it is required that X is already sorted
-    coff = s.getCoefficients();
 }
 
 void Terrain::beforeDraw(Renderer* renderer) {
@@ -92,7 +74,7 @@ void Terrain::loadModel() {
 
     texture = std::make_shared<Texture>(GL_TEXTURE_2D, terrainSidePointCount, terrain);
 
-    std::ifstream roadPointFile("road_points.json");
+    std::ifstream roadPointFile(roadPointFilename);
     nlohmann::json roadData;
     roadPointFile >> roadData;
     for (auto point : roadData) {

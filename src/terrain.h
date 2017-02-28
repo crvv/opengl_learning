@@ -21,6 +21,7 @@ private:
     void loadModel();
     void updateSplineCoff();
 
+    std::string roadPointFilename = "road_points.json";
     int currentPoint = 0;
     std::vector<double> xs, ys;
     tk::spline::coefficients coff;

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(simple)
+project(road)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 \
     -Wall -Wextra -Wpedantic \
@@ -35,6 +35,6 @@ set(SOURCE_FILES
         src/json.hpp
         )
 
-add_executable(simple ${SOURCE_FILES})
+add_executable(road ${SOURCE_FILES})
 
-target_link_libraries(simple SDL2 glew32 opengl32 winmm imm32 Version)
+target_link_libraries(road SDL2 glew32 opengl32 winmm imm32 Version)

@@ -68,8 +68,8 @@ void main() {
         roadxy = vec2(x, y) + normalVector * dist;
     }
 
-    float halfWidth = 0.0040;
-    float height = 0.002;
+    float halfWidth = 0.0015;
+    float height = 0.001;
 
     float roadz = 0;
     int neighbors = 20;

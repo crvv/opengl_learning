@@ -85,6 +85,7 @@ void main() {
         } else if (dist < halfWidth) {
             z = roadz + height * 1.2;
         } else {
+            road = 10;
             z += (3 - 2 * dist / halfWidth) * (roadz + height * 1.2 - z);
         }
     }

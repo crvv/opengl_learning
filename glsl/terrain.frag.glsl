@@ -7,7 +7,7 @@ flat in int road;
 
 void main() {
     if (road == 1) {
-        gl_FragColor = vec4(0.5, 0.5, 0.5, 1);
+        gl_FragColor = vec4(0.8, 0.8, 0.8, 1);
         return;
     }
     if (road == 2) {
@@ -16,6 +16,10 @@ void main() {
     }
     if (road == 3) {
         gl_FragColor = vec4(1, 0, 0, 1);
+        return;
+    }
+    if (road == 10) {
+        gl_FragColor = vec4(0.4, 0.4, 0.4, 1);
         return;
     }
 	float height = position.z * terrainSideLength;

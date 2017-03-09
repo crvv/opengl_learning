@@ -1,6 +1,7 @@
 #ifndef SIMPLESCENEGRAPH_TERRAIN_H_
 #define SIMPLESCENEGRAPH_TERRAIN_H_
 
+#include <functional>
 #include <string>
 
 #include "spline.h"

@@ -1,7 +1,7 @@
 #ifndef SIMPLESCENEGRAPH_CONTROLLER_H_
 #define SIMPLESCENEGRAPH_CONTROLLER_H_
 
-
+#include <functional>
 #include <SDL2/SDL_scancode.h>
 
 #include "renderer.h"

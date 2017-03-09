@@ -36,4 +36,26 @@ set(SOURCE_FILES
 
 add_executable(road ${SOURCE_FILES})
 
-target_link_libraries(road SDL2 glew32 opengl32 winmm imm32 Version)
+if (WIN32)
+    target_link_libraries(road SDL2 glew opengl32 winmm imm32 Version)
+endif (WIN32)
+
+if (APPLE)
+    FIND_LIBRARY(OpenGL_LIBRARY OpenGL)
+endif(APPLE)
+
+if (UNIX)
+    find_package(PkgConfig REQUIRED)
+    pkg_search_module(SDL2 REQUIRED sdl2)
+    pkg_search_module(GLEW REQUIRED glew)
+    target_link_libraries(road
+        ${SDL2_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        ${OpenGL_LIBRARY}
+        )
+    target_include_directories(road PUBLIC
+        ${SDL2_INCLUDE_DIRS}
+        ${GLEW_INCLUDE_DIRS}
+        )
+endif(UNIX)
+

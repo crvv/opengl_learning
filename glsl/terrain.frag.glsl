@@ -5,21 +5,23 @@ uniform float terrainSideLength;
 in vec4 position;
 flat in int road;
 
+out vec4 fragColor;
+
 void main() {
     if (road == 1) {
-        gl_FragColor = vec4(0.8, 0.8, 0.8, 1);
+        fragColor = vec4(0.8, 0.8, 0.8, 1);
         return;
     }
     if (road == 2) {
-        gl_FragColor = vec4(0, 1, 0, 1);
+        fragColor = vec4(0, 1, 0, 1);
         return;
     }
     if (road == 3) {
-        gl_FragColor = vec4(1, 0, 0, 1);
+        fragColor = vec4(1, 0, 0, 1);
         return;
     }
     if (road == 10) {
-        gl_FragColor = vec4(0.4, 0.4, 0.4, 1);
+        fragColor = vec4(0.4, 0.4, 0.4, 1);
         return;
     }
 	float height = position.z * terrainSideLength;
@@ -32,5 +34,5 @@ void main() {
         green = 1 - height / 2000;
         red = 1 - green;
     }
-	gl_FragColor = vec4(red, green, blue, 1) * 0.6;
+	fragColor = vec4(red, green, blue, 1) * 0.6;
 }

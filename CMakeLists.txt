@@ -8,7 +8,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 \
     -Wshadow \
     -Wzero-as-null-pointer-constant \
     -Wuseless-cast")
-set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 set(SOURCE_FILES
         src/fps.h

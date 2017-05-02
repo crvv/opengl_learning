@@ -24,6 +24,11 @@ void main() {
         fragColor = vec4(0.4, 0.4, 0.4, 1);
         return;
     }
+    if (road == 8) {
+        gl_FragColor = vec4(1, 1, 1, 1);
+        return;
+    }
+
 	float height = position.z * terrainSideLength;
     float red = 0;
     float green = 0;

@@ -54,9 +54,9 @@ void main() {
 //    vec4 v3 = project(gl_in[3].gl_Position);
 
     float pixel = 8;
-//    if (frameEnable) {
-//        pixel *= 2;
-//    }
+    if (frameEnable) {
+        pixel *= 2;
+    }
     float level = 0;
     if(all(bvec4(offscreen(v0), offscreen(v1), offscreen(v2), offscreen(v3)))){
     } else {

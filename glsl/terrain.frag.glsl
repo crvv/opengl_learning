@@ -25,7 +25,7 @@ void main() {
         return;
     }
     if (road == 8) {
-        gl_FragColor = vec4(1, 1, 1, 1);
+        fragColor = vec4(1, 1, 1, 1);
         return;
     }
 

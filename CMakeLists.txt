@@ -37,7 +37,7 @@ set(SOURCE_FILES
 add_executable(road ${SOURCE_FILES})
 
 if (WIN32)
-    target_link_libraries(road SDL2 glew opengl32 winmm imm32 Version)
+    target_link_libraries(road SDL2 glew32 opengl32 winmm imm32 Version)
 endif (WIN32)
 
 if (APPLE)

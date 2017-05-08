@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "json.hpp"
 #include "terrain.h"
 #include "model.h"
 
@@ -36,7 +35,8 @@ Terrain::Terrain(Controller* controller) {
             v.push_back(ys[i]);
             i++;
         });
-        std::ofstream(roadPointFilename) << nlohmann::json(jsonData);
+        vectorData["road"] = jsonData;
+        std::ofstream(vectorDataFilename) << vectorData;
         std::cout << "saved" << std::endl;
     }));
     controller->setKeyboardEventCallback(SDL_SCANCODE_N, new std::function<void()>([this]() {
@@ -130,10 +130,9 @@ void Terrain::loadModel() {
 
     texture = std::make_shared<Texture>(GL_TEXTURE_2D, terrainSidePointCount, terrain);
 
-    std::ifstream roadPointFile(roadPointFilename);
-    nlohmann::json roadData;
-    roadPointFile >> roadData;
-    for (auto point : roadData) {
+    std::ifstream roadPointFile(vectorDataFilename);
+    roadPointFile >> vectorData;
+    for (auto point : vectorData["road"]) {
         xs.push_back(point[0]);
         ys.push_back(point[1]);
     }

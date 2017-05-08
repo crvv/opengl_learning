@@ -4,6 +4,7 @@
 #include <functional>
 #include <string>
 
+#include "json.hpp"
 #include "spline.h"
 #include "glheader.h"
 #include "node.h"
@@ -25,7 +26,8 @@ private:
     std::function<void()>* getPointSelectFunction(int);
     std::function<void()>* getPointMoveFunction(float, float);
 
-    std::string roadPointFilename = "road_points.json";
+    nlohmann::json vectorData;
+    std::string vectorDataFilename = "vector.json";
     int currentPoint = 0;
     std::vector<double> xs, ys;
     tk::spline::coefficients coff;

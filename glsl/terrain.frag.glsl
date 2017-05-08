@@ -3,29 +3,33 @@
 uniform float terrainSideLength;
 
 in vec4 position;
-flat in int road;
+flat in int pointType;
 
 out vec4 fragColor;
 
 void main() {
-    if (road == 1) {
+    if (pointType == 1) {
         fragColor = vec4(0.8, 0.8, 0.8, 1);
         return;
     }
-    if (road == 2) {
+    if (pointType == 2) {
         fragColor = vec4(0, 1, 0, 1);
         return;
     }
-    if (road == 3) {
+    if (pointType == 3) {
         fragColor = vec4(1, 0, 0, 1);
         return;
     }
-    if (road == 10) {
+    if (pointType == 10) {
         fragColor = vec4(0.4, 0.4, 0.4, 1);
         return;
     }
-    if (road == 8) {
-        fragColor = vec4(1, 1, 1, 1);
+    if (pointType == 8) {
+        fragColor = vec4(0.1137, 0.5294, 0.5294, 1);
+        return;
+    }
+    if (pointType == 9) {
+        fragColor = vec4(0.8, 0.4941, 0.03922, 1);
         return;
     }
 

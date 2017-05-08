@@ -75,7 +75,7 @@ void Monitor::display(Renderer &r) {
     SDL_ShowCursor(0);
 
     while (sdlShouldRunning) {
-//        std::cout << "\r" << std::fixed << counter.addFrame(SDL_GetTicks()) << " ms/frame";
+        std::cout << "\r" << std::fixed << counter.addFrame(SDL_GetTicks()) << " ms/frame";
         controller->handleEvent();
         renderer->draw();
         SDL_GL_SwapWindow(window);
